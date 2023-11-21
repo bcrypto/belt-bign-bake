@@ -633,7 +633,7 @@ formally defined as follows.
 
  `u(x) mod f(x)`:
 : for a polynomial `u(x)` and a nonzero polynomial `f(x)`,
-  the remainder of polynomial division of `u(x)` by `f(x)`;
+  the remainder of the division of `u(x)` by `f(x)`;
 
  `u * v`:
 : for words `u`, `v in {0, 1}^128`, the word `w in {0, 1}^128` such
@@ -1464,15 +1464,16 @@ implementation, compactness of data representation and transparency.
 
 The full list of requirements, called `bign-curves`, is as follows.
 
-1.  At the security level l in `{128, 192, 256}`, `2^{2*l-1} < p, q < 2^{2*l}`.
+1.  At the security level `l in {128, 192, 256}` it holds that 
+    `2^{2*l-1} < p, q < 2^{2*l}`.
 2.  `p` and `q` are prime numbers.
 3.  `p != q`.
 4.  `p mod 4 = 3`.
 5.  `p^m mod q != 1` for `m = 1, 2,..., 50`.
 6.  `0 < a`, `b < p`.
-7.  `b = [belt-hash(<p>_{2*l} || <a>_{2*l} || seed)] mod p`, where seed in
-    `{0, 1}^{64}` is an initialization parameter for the curve generation
-    algorithm.
+7.  `b = [belt-hash(<p>_{2*l} || <a>_{2*l} || seed)] mod p`, where 
+    `seed in {0, 1}^{64}` is an initialization parameter for the curve 
+    generation algorithm.
 8.  `b^{(p-1)/2} mod p = 1`, i.e., `b` is a quadratic residue modulo `p`.
 9.  `(4 a^3 + 27 b^2) mod p != 0`.
 10. `G = (0, y_G)`, where `y_G = b^{(p+1)/4} mod p`.
@@ -1559,6 +1560,7 @@ Steps:
 2. If either condition:
    * `0 <= x_Q, y_Q < p`;
    * `y_Q^2 mod p = (x_Q^3 + a * x_Q + b) mod p`;
+
    is violated, then return 0.
 3. Return 1.
 
@@ -2180,8 +2182,8 @@ Parameters:
 
 * `p = 2^{384} - 317`;
 * `a = p - 3`;
-* `b = 93057145442254306076901036725798402895710105025993\
-   74151660380432967684614892230431863267093750334370523665755520868`;
+* `b = 9305714544225430607690103672579840289571010502599374151660380\
+       432967684614892230431863267093750334370523665755520868`;
 * `q = 2^{384} - 9886438520659958522437788006980660965037549058207958390857`;
 * `y_G = 14354597912740189857575301128892105630080584412759834680227804744167703823413075975665088124941253511968357604377681`.
 
@@ -2428,6 +2430,12 @@ calculated as the maximum block length of the concatenation made from `X`,
 
 Here `sqrt` denotes the square root.
 
+Quotas are not defined for the keys used by the algorithm `belt-ecb` since it
+doesn't use nonces.
+
+It is not necessary to specify quotas when processing cryptographic keys and
+other high-entropy data that cannot be manipulated by an adversary.
+
 **Example**. Consider an application where data is processed in packets.
 An encrypted packet consists of a header `I`, a nonce `S`, a ciphertext `Y`
 that corresponds to a plaintext `X` and an authentication tag `T`. Let the
@@ -2439,18 +2447,13 @@ D = ceiling(46/16) + ceiling(1408/16) + 1 = 92.
 ~~~
 
 Here the `ceiling` function rounds a real number up to the nearest integer.
+
 If the algorithm `belt-dwp` is used, then the maximum security assurance
 is achieved if the total number of blocks in `X` and `T` does not exceed
 
 ~~~
 2^{32} * sqrt(2/(7*92 + 7)) approx 2^{27.8}.
 ~~~
-
-Quotas are not defined for the keys used by the algorithm `belt-ecb` since it
-doesn't use nonces.
-
-It is not necessary to specify quotas when processing cryptographic keys and
-other high-entropy data that cannot be manipulated by an adversary.
 
 # Generating the S-box `H` {#BELTH}
 
@@ -2467,9 +2470,8 @@ This array can be generated as follows:
    3. `H[x] <- t`.
 3. Return `H`.
 
-The function `Clock()` is defined as
-`Clock(t) = (t_2 ^ t_3 ^ t_7 ^ t_8) t_1 t_2 ... t_7` for an input word
-`t = t_1 t_2 ... t_8`, .
+Нere for `t = t_1 t_2 ... t_8 in {0, 1}^8`, 
+`Clock(t) =  (t_2 ^ t_3 ^ t_7 ^ t_8) t_1 t_2 ... t_7`.
 
 # Test vectors {#TEST}
 
