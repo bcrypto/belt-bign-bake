@@ -1464,15 +1464,15 @@ implementation, compactness of data representation and transparency.
 
 The full list of requirements, called `bign-curves`, is as follows.
 
-1.  At the security level `l in {128, 192, 256}` it holds that 
+1.  At the security level `l in {128, 192, 256}` it holds that
     `2^{2*l-1} < p, q < 2^{2*l}`.
 2.  `p` and `q` are prime numbers.
 3.  `p != q`.
 4.  `p mod 4 = 3`.
 5.  `p^m mod q != 1` for `m = 1, 2,..., 50`.
 6.  `0 < a`, `b < p`.
-7.  `b = [belt-hash(<p>_{2*l} || <a>_{2*l} || seed)] mod p`, where 
-    `seed in {0, 1}^{64}` is an initialization parameter for the curve 
+7.  `b = [belt-hash(<p>_{2*l} || <a>_{2*l} || seed)] mod p`, where
+    `seed in {0, 1}^{64}` is an initialization parameter for the curve
     generation algorithm.
 8.  `b^{(p-1)/2} mod p = 1`, i.e., `b` is a quadratic residue modulo `p`.
 9.  `(4 a^3 + 27 b^2) mod p != 0`.
@@ -2470,7 +2470,7 @@ This array can be generated as follows:
    3. `H[x] <- t`.
 3. Return `H`.
 
-Нere for `t = t_1 t_2 ... t_8 in {0, 1}^8`, 
+Нere for `t = t_1 t_2 ... t_8 in {0, 1}^8`,
 `Clock(t) =  (t_2 ^ t_3 ^ t_7 ^ t_8) t_1 t_2 ... t_7`.
 
 # Test vectors {#TEST}
