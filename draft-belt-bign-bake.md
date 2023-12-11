@@ -2193,7 +2193,7 @@ Additional details:
 * `q - 1 = 2 * 3 * 13 * 23 * 1217 * r_{363}`;
 * `q + 1 = 2^3 * 5 * 17 * r_{375}`.
 
-## A.4 The `bign-curve512v1` curve
+## The `bign-curve512v1` curve
 
 Parameters:
 
